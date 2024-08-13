@@ -749,6 +749,14 @@ typedef IHookChainRegistryClassImpl<void, CBasePlayer> CReGameHookRegistry_CBase
 typedef IHookChainClassImpl<void, CBasePlayer, BOOL> CReGameHook_CBasePlayer_RemoveAllItems;
 typedef IHookChainRegistryClassImpl<void, CBasePlayer, BOOL> CReGameHookRegistry_CBasePlayer_RemoveAllItems;
 
+// CBasePlayerItem::Materialize hook
+typedef IHookChainClassImpl<void, CBasePlayerItem> CReGameHook_CBasePlayerItem_Materialize;
+typedef IHookChainRegistryClassImpl<void, CBasePlayerItem> CReGameHookRegistry_CBasePlayerItem_Materialize;
+
+// CBasePlayerItem::CheckRespawn hook
+typedef IHookChainClassImpl<void, CBasePlayerItem> CReGameHook_CBasePlayerItem_CheckRespawn;
+typedef IHookChainRegistryClassImpl<void, CBasePlayerItem> CReGameHookRegistry_CBasePlayerItem_CheckRespawn;
+
 // CBreakable::Spawn hook
 typedef IHookChainClassImpl<void, CBreakable> CReGameHook_CBreakable_Spawn;
 typedef IHookChainRegistryClassImpl<void, CBreakable> CReGameHookRegistry_CBreakable_Spawn;
@@ -939,6 +947,9 @@ public:
 	CReGameHookRegistry_CBasePlayer_Observer_Think m_CBasePlayer_Observer_Think;
 	CReGameHookRegistry_CBasePlayer_RemoveAllItems m_CBasePlayer_RemoveAllItems;
 
+	CReGameHookRegistry_CBasePlayerItem_Materialize m_CBasePlayerItem_Materialize;
+	CReGameHookRegistry_CBasePlayerItem_CheckRespawn m_CBasePlayerItem_CheckRespawn;
+
 	CReGameHookRegistry_CBreakable_Spawn m_CBreakable_Spawn;
 	CReGameHookRegistry_CBreakable_Restart m_CBreakable_Restart;
 	CReGameHookRegistry_CBreakable_TraceAttack m_CBreakable_TraceAttack;
@@ -946,6 +957,7 @@ public:
 	CReGameHookRegistry_CBreakable_Use m_CBreakable_Use;
 	CReGameHookRegistry_CBreakable_Die m_CBreakable_Die;
 	CReGameHookRegistry_CBreakable_BreakTouch m_CBreakable_BreakTouch;
+
 
 public:
 	virtual IReGameHookRegistry_CBasePlayer_Spawn *CBasePlayer_Spawn();
@@ -1105,7 +1117,10 @@ public:
 
 	virtual IReGameHookRegistry_CBasePlayer_PlayerDeathThink *CBasePlayer_PlayerDeathThink();
 	virtual IReGameHookRegistry_CBasePlayer_Observer_Think *CBasePlayer_Observer_Think();
-	virtual IReGameHookRegistry_CBasePlayer_RemoveAllItems *CBasePlayer_RemoveAllItems();
+	virtual IReGameHookRegistry_CBasePlayer_RemoveAllItems *CBasePlayer_RemoveAllItems();  
+  
+	virtual IReGameHookRegistry_CBasePlayerItem_Materialize *CBasePlayerItem_Materialize();
+	virtual IReGameHookRegistry_CBasePlayerItem_CheckRespawn *CBasePlayerItem_CheckRespawn();
 
 	virtual IReGameHookRegistry_CBreakable_Spawn *CBreakable_Spawn();
 	virtual IReGameHookRegistry_CBreakable_Restart *CBreakable_Restart();

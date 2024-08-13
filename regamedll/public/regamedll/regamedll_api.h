@@ -628,6 +628,13 @@ typedef IHookChainRegistryClass<void, class CBasePlayer> IReGameHookRegistry_CBa
 typedef IHookChainClass<void, class CBasePlayer, BOOL> IReGameHook_CBasePlayer_RemoveAllItems;
 typedef IHookChainRegistryClass<void, class CBasePlayer, BOOL> IReGameHookRegistry_CBasePlayer_RemoveAllItems;
 
+// CBasePlayerItem::Materialize hook
+typedef IHookChainClass<void, class CBasePlayerItem> IReGameHook_CBasePlayerItem_Materialize;
+typedef IHookChainRegistryClass<void, class CBasePlayerItem> IReGameHookRegistry_CBasePlayerItem_Materialize;
+
+// CBasePlayerItem::CheckRespawn hook
+typedef IHookChainClass<void, class CBasePlayerItem> IReGameHook_CBasePlayerItem_CheckRespawn;
+
 // CBreakable::Spawn hook
 typedef IHookChainClassImpl<void, CBreakable> IReGameHook_CBreakable_Spawn;
 typedef IHookChainRegistryClassImpl<void, CBreakable> IReGameHookRegistry_CBreakable_Spawn;
@@ -819,6 +826,9 @@ public:
 	virtual IReGameHookRegistry_CBasePlayer_Observer_Think *CBasePlayer_Observer_Think() = 0;
 	virtual IReGameHookRegistry_CBasePlayer_RemoveAllItems *CBasePlayer_RemoveAllItems() = 0;
 
+	virtual IReGameHookRegistry_CBasePlayerItem_Materialize *CBasePlayerItem_Materialize() = 0;
+	virtual IReGameHookRegistry_CBasePlayerItem_CheckRespawn *CBasePlayerItem_CheckRespawn() = 0;
+
 	virtual IReGameHookRegistry_CBreakable_Spawn *CBreakable_Spawn() = 0;
 	virtual IReGameHookRegistry_CBreakable_Restart *CBreakable_Restart() = 0;
 	virtual IReGameHookRegistry_CBreakable_TraceAttack *CBreakable_TraceAttack() = 0;
@@ -826,6 +836,7 @@ public:
 	virtual IReGameHookRegistry_CBreakable_Use *CBreakable_Use() = 0;
 	virtual IReGameHookRegistry_CBreakable_Die *CBreakable_Die() = 0;
 	virtual IReGameHookRegistry_CBreakable_BreakTouch *CBreakable_BreakTouch() = 0;
+
 };
 
 struct ReGameFuncs_t {

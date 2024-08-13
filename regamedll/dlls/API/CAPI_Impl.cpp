@@ -337,6 +337,10 @@ GAMEHOOK_REGISTRY(CBasePlayer_PlayerDeathThink);
 GAMEHOOK_REGISTRY(CBasePlayer_Observer_Think);
 GAMEHOOK_REGISTRY(CBasePlayer_RemoveAllItems);
 
+
+GAMEHOOK_REGISTRY(CBasePlayerItem_Materialize);
+GAMEHOOK_REGISTRY(CBasePlayerItem_CheckRespawn);
+
 GAMEHOOK_REGISTRY(CBreakable_Spawn);
 GAMEHOOK_REGISTRY(CBreakable_Restart);
 GAMEHOOK_REGISTRY(CBreakable_TraceAttack);
