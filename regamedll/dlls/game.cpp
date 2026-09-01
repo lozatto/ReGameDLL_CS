@@ -22,7 +22,7 @@ cvar_t fragsleft             = { "mp_fragsleft", "0", FCVAR_SERVER | FCVAR_UNLOG
 cvar_t timeleft              = { "mp_timeleft", "0", FCVAR_SERVER | FCVAR_UNLOGGED, 0.0f, nullptr };
 
 cvar_t friendlyfire          = { "mp_friendlyfire", "0", FCVAR_SERVER, 0.0f, nullptr };
-cvar_t entity_gc             = { "mp_entity_gc", "1", FCVAR_SERVER, 0.0f, nullptr };
+cvar_t entity_gc             = { "mp_entity_gc", "1", 0, 0.0f, nullptr };
 cvar_t infiniteAmmo          = { "mp_infinite_ammo", "0", FCVAR_SERVER, 0.0f, nullptr };
 cvar_t infiniteGrenades      = { "mp_infinite_grenades", "0", FCVAR_SERVER, 0.0f, nullptr };
 cvar_t allowmonsters         = { "mp_allowmonsters", "0", FCVAR_SERVER, 0.0f, nullptr };
