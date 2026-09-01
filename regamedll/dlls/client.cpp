@@ -3923,6 +3923,7 @@ void EXT_FUNC ParmsChangeLevel()
 	if (pSaveData)
 	{
 		pSaveData->connectionCount = BuildChangeList(pSaveData->levelList, MAX_LEVEL_CONNECTIONS);
+	}
 }
 
 extern cvar_t entity_gc;
