@@ -406,13 +406,14 @@ void CReGameApi::QueueHudMessage(int client, const struct hudtextparms_s &textpa
 {
 	if (client == 0)
 	{
-		UTIL_HudMessageAll(textparms, pMessage);
+		for (int i = 1; i <= gpGlobals->maxClients; i++)
+		{
+			g_HudQueue.QueueMessage(i, textparms, pMessage);
+		}
 	}
 	else
 	{
-		CBaseEntity *pPlayer = UTIL_PlayerByIndex(client);
-		if (pPlayer)
-			UTIL_HudMessage(pPlayer, textparms, pMessage);
+		g_HudQueue.QueueMessage(client, textparms, pMessage);
 	}
 }
 

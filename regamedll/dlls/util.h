@@ -259,7 +259,6 @@ extern CHudMessageQueue g_HudQueue;
 
 void UTIL_HudMessage(CBaseEntity *pEntity, const hudtextparms_t &textparms, const char *pMessage);
 void UTIL_HudMessageAll(const hudtextparms_t &textparms, const char *pMessage);
-void UTIL_SendHudMessage(CBaseEntity *pEntity, const hudtextparms_t &textparms, const char *pMessage);
 void UTIL_ClientPrintAll(int msg_dest, const char *msg_name, const char *param1 = nullptr, const char *param2 = nullptr, const char *param3 = nullptr, const char *param4 = nullptr);
 void ClientPrint(entvars_t *client, int msg_dest, const char *msg_name, const char *param1 = nullptr, const char *param2 = nullptr, const char *param3 = nullptr, const char *param4 = nullptr);
 void UTIL_Log(const char *fmt, ...);

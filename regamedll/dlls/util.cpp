@@ -658,7 +658,7 @@ void CHudMessageQueue::Think() {
 			}
 			
 			if (currentTime >= m_players[i].channelFreeTime[targetChannel]) {
-				UTIL_SendHudMessage(pPlayer, parms, m_players[i].messages[j].message);
+				UTIL_HudMessage(pPlayer, parms, m_players[i].messages[j].message);
 				m_players[i].channelFreeTime[targetChannel] = currentTime + parms.fadeinTime + parms.holdTime + parms.fadeoutTime + 0.2f;
 				
 				m_players[i].messages[j].inUse = false;
@@ -667,56 +667,54 @@ void CHudMessageQueue::Think() {
 	}
 }
 
-void UTIL_SendHudMessage(CBaseEntity *pEntity, const hudtextparms_t &textparms, const char *pMessage)
-{
-	if (!pEntity || !pEntity->IsNetClient())
-		return;
-
-	MESSAGE_BEGIN(MSG_ONE, SVC_TEMPENTITY, nullptr, pEntity->edict());
-		WRITE_BYTE(TE_TEXTMESSAGE);
-		WRITE_BYTE(textparms.channel & 0xFF);
-		WRITE_SHORT(FixedSigned16(textparms.x, (1<<13)));
-		WRITE_SHORT(FixedSigned16(textparms.y, (1<<13)));
-		WRITE_BYTE(textparms.effect);
-		WRITE_BYTE(textparms.r1);
-		WRITE_BYTE(textparms.g1);
-		WRITE_BYTE(textparms.b1);
-		WRITE_BYTE(textparms.a1);
-		WRITE_BYTE(textparms.r2);
-		WRITE_BYTE(textparms.g2);
-		WRITE_BYTE(textparms.b2);
-		WRITE_BYTE(textparms.a2);
-		WRITE_SHORT(FixedUnsigned16(textparms.fadeinTime, (1<<8)));
-		WRITE_SHORT(FixedUnsigned16(textparms.fadeoutTime, (1<<8)));
-		WRITE_SHORT(FixedUnsigned16(textparms.holdTime, (1<<8)));
-
-		if (textparms.effect == 2)
-			WRITE_SHORT(FixedUnsigned16(textparms.fxTime, (1<<8)));
-
-		if (!pMessage)
-			WRITE_STRING(" ");
-		else
-		{
-			if (Q_strlen(pMessage) >= 512)
-			{
-				char tmp[512];
-				Q_strlcpy(tmp, pMessage);
-				WRITE_STRING(tmp);
-			}
-			else
-			{
-				WRITE_STRING(pMessage);
-			}
-		}
-	MESSAGE_END();
-}
-
 void UTIL_HudMessage(CBaseEntity *pEntity, const hudtextparms_t &textparms, const char *pMessage)
 {
 	if (!pEntity || !pEntity->IsNetClient())
 		return;
 
-	g_HudQueue.QueueMessage(pEntity->entindex(), textparms, pMessage);
+	MESSAGE_BEGIN(MSG_ONE, SVC_TEMPENTITY, nullptr, pEntity->edict());
+	WRITE_BYTE(TE_TEXTMESSAGE);
+	WRITE_BYTE(textparms.channel & 0xFF);
+
+	WRITE_SHORT(FixedSigned16(textparms.x, 1 << 13));
+	WRITE_SHORT(FixedSigned16(textparms.y, 1 << 13));
+	WRITE_BYTE(textparms.effect);
+
+	WRITE_BYTE(textparms.r1);
+	WRITE_BYTE(textparms.g1);
+	WRITE_BYTE(textparms.b1);
+	WRITE_BYTE(textparms.a1);
+
+	WRITE_BYTE(textparms.r2);
+	WRITE_BYTE(textparms.g2);
+	WRITE_BYTE(textparms.b2);
+	WRITE_BYTE(textparms.a2);
+
+	WRITE_SHORT(FixedUnsigned16(textparms.fadeinTime, 1 << 8));
+	WRITE_SHORT(FixedUnsigned16(textparms.fadeoutTime, 1 << 8));
+	WRITE_SHORT(FixedUnsigned16(textparms.holdTime, 1 << 8));
+
+	if (textparms.effect == 2)
+		WRITE_SHORT(FixedUnsigned16(textparms.fxTime, 1 << 8));
+
+	if (!pMessage)
+	{
+		WRITE_STRING(" ");
+	}
+	else
+	{
+		if (Q_strlen(pMessage) >= 512)
+		{
+			char tmp[512];
+			Q_strlcpy(tmp, pMessage);
+			WRITE_STRING(tmp);
+		}
+		else
+		{
+			WRITE_STRING(pMessage);
+		}
+	}
+	MESSAGE_END();
 }
 
 void UTIL_HudMessageAll(const hudtextparms_t &textparms, const char *pMessage)
